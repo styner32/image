@@ -1,4 +1,4 @@
-import type { HTMLPasteEventDetail } from '@editorjs/editorjs';
+import type { HTMLPasteEventDetail } from "@editorjs/editorjs";
 
 /**
  * Represents options for uploading, including a function to handle previewing.
@@ -9,7 +9,7 @@ export interface UploadOptions {
    * @param src - The source of the preview as a string.
    * @returns void
    */
-  onPreview: (src: string) => void;
+  onPreview: (src: string, width?: number, height?: number) => void;
 }
 
 /**
@@ -40,7 +40,7 @@ export interface ActionConfig {
    * An optional action function to be executed when the tune is activated.
    */
   action?: Function;
-};
+}
 
 /**
  * UploadResponseFormat interface representing the response format expected from the backend on file uploading.
@@ -116,7 +116,7 @@ export type FeaturesConfig = {
    * Flag to enable/disable caption.
    * Can be set to 'optional' to allow users to toggle via block tunes.
    */
-  caption?: boolean | 'optional';
+  caption?: boolean | "optional";
   /**
    * Flag to enable/disable tune - stretched
    */
@@ -132,7 +132,6 @@ export interface ImageConfig {
    * Endpoints for upload, whether using file or URL.
    */
   endpoints: {
-
     /**
      * Endpoint for file upload.
      */
@@ -178,11 +177,13 @@ export interface ImageConfig {
    * Optional custom uploader.
    */
   uploader?: {
-
     /**
      * Method to upload an image by file.
      */
-    uploadByFile?: (file: Blob) => Promise<UploadResponseFormat>;
+    uploadByFile?: (
+      file: Blob,
+      options?: { width?: number; height?: number }
+    ) => Promise<UploadResponseFormat>;
 
     /**
      * Method to upload an image by URL.
